@@ -6,16 +6,10 @@ import {
   withTableActions,
 } from '@gravity-ui/uikit'
 
-import {
-  ERequestStatus,
-  IRequestType,
-} from '../../interfaces/Request.interface'
+import { selectorAdminMode } from '../../redux/slices/admin/slice'
+import { deleteItem, selectorGetData } from '../../redux/slices/data/slice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { tranformDataForTable } from '../../utils/transformDataForTable'
-
-const currentDate = new Intl.DateTimeFormat('ru-RU', {
-  dateStyle: 'short',
-  timeStyle: 'short',
-}).format(new Date())
 
 const columns: TableColumnConfig<TableDataItem>[] = [
   { id: 'number', name: 'Номер', align: 'center' },
@@ -27,21 +21,13 @@ const columns: TableColumnConfig<TableDataItem>[] = [
   { id: 'status', name: 'Состояние', align: 'center' },
   { id: 'code', name: 'Код ATI', align: 'center' },
 ]
-const data: IRequestType[] = [
-  {
-    number: 1,
-    date: currentDate,
-    company: 'Hoff',
-    responsible: 'Иванов И. В.',
-    telephone: 9991234567,
-    comment: 'Доставить по будням после 17:00',
-    status: ERequestStatus.TRANSIT,
-    code: 54321,
-  },
-]
-const emptyMessage = 'Данные отсутствуют'
 
 export const TableRequest = () => {
+  const admin = useAppSelector(selectorAdminMode)
+  const data = useAppSelector(selectorGetData)
+
+  const dispatch = useAppDispatch()
+
   const TableActions = withTableActions(Table)
 
   const getRowActions: (
@@ -55,11 +41,13 @@ export const TableRequest = () => {
       },
       {
         text: 'Удалить',
-        handler: () => {},
+        handler: (item) => dispatch(deleteItem(item.number)),
         theme: 'danger',
       },
     ]
   }
+
+  const emptyMessage = 'Данные отсутствуют'
 
   return (
     <TableActions
@@ -67,7 +55,7 @@ export const TableRequest = () => {
       data={tranformDataForTable(data)}
       wordWrap
       emptyMessage={emptyMessage}
-      getRowActions={getRowActions}
+      getRowActions={admin ? getRowActions : undefined}
     ></TableActions>
   )
 }
