@@ -1,5 +1,12 @@
+import { ControlPanel, TableRequest } from '../../components'
+
 import styles from './Main.module.scss'
 
-export const Main = () => {
-  return <main className={styles.wrapper}>Main Page</main>
+export const MainPage = () => {
+  return (
+    <main className={styles.wrapper}>
+      <ControlPanel />
+      <TableRequest />
+    </main>
+  )
 }

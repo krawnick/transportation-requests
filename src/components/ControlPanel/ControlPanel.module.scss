@@ -1,0 +1,11 @@
+.controlPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  margin-bottom: 50px;
+  padding: 20px;
+
+  border-bottom: 1px solid var(--g-color-line-generic);
+}
