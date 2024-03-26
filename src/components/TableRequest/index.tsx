@@ -3,6 +3,7 @@ import {
   TableActionConfig,
   TableColumnConfig,
   TableDataItem,
+  Text,
   withTableActions,
 } from '@gravity-ui/uikit'
 
@@ -11,11 +12,17 @@ import { deleteItem, selectorGetData } from '../../redux/slices/data/slice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { tranformDataForTable } from '../../utils/transformDataForTable'
 
+import styles from './TableRequest.module.scss'
+
 const columns: TableColumnConfig<TableDataItem>[] = [
   { id: 'number', name: 'Номер', align: 'center' },
   { id: 'date', name: 'Дата', align: 'center' },
   { id: 'company', name: 'Компания', align: 'center' },
-  { id: 'responsible', name: 'Исполнитель', align: 'center' },
+  {
+    id: 'responsible',
+    name: 'Исполнитель',
+    align: 'center',
+  },
   { id: 'telephone', name: 'Телефон', align: 'center' },
   { id: 'comment', name: 'Комментарий', align: 'center' },
   { id: 'status', name: 'Состояние', align: 'center' },
@@ -50,12 +57,18 @@ export const TableRequest = () => {
   const emptyMessage = 'Данные отсутствуют'
 
   return (
-    <TableActions
-      columns={columns}
-      data={tranformDataForTable(data)}
-      wordWrap
-      emptyMessage={emptyMessage}
-      getRowActions={admin ? getRowActions : undefined}
-    ></TableActions>
+    <>
+      <Text variant="body-2">
+        Количество заявок: <Text variant="body-3">{data.length}</Text>
+      </Text>
+      <TableActions
+        className={styles.table}
+        columns={columns}
+        data={tranformDataForTable(data)}
+        wordWrap
+        emptyMessage={emptyMessage}
+        getRowActions={admin ? getRowActions : undefined}
+      ></TableActions>
+    </>
   )
 }

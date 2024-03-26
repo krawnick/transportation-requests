@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../store'
 
 const initialState = {
-  adminMode: false,
+  adminMode: true,
 }
 
 const adminSlice = createSlice({

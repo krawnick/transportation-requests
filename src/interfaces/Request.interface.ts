@@ -10,7 +10,7 @@ export interface IRequestType {
   company: string
   responsible: string
   telephone: number
-  comment: string
+  comment?: string
   status: ERequestStatus
   code: number
 }
