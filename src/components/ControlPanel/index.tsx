@@ -2,7 +2,11 @@ import { Plus } from '@gravity-ui/icons'
 import { Button, Icon, Switch } from '@gravity-ui/uikit'
 import cn from 'classnames'
 
-import { adminMode, selectorAdminMode } from '../../redux/slices/admin/slice'
+import {
+  adminModalShow,
+  adminMode,
+  selectorAdminMode,
+} from '../../redux/slices/admin/slice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 
 import styles from './ControlPanel.module.scss'
@@ -20,7 +24,11 @@ export const ControlPanel = () => {
       )}
     >
       {admin && (
-        <Button size="xl" view="action">
+        <Button
+          size="xl"
+          view="action"
+          onClick={() => dispatch(adminModalShow('add'))}
+        >
           <Icon data={Plus} size={16} />
           Добавить заявку
         </Button>

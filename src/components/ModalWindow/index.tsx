@@ -8,15 +8,17 @@ interface IModalTypes extends ModalProps {
 
 export const ModalWindow = ({ title, children, ...props }: IModalTypes) => {
   return (
-    <Modal className={styles.modal} {...props}>
-      <div className={styles.content}>
-        {title && (
-          <Text className={styles.title} variant="header-2">
-            {title}
-          </Text>
-        )}
-        {children}
-      </div>
+    <Modal
+      className={styles.modal}
+      contentClassName={styles.content}
+      {...props}
+    >
+      {title && (
+        <Text className={styles.title} variant="header-2">
+          {title}
+        </Text>
+      )}
+      {children}
     </Modal>
   )
 }

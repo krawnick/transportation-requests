@@ -7,8 +7,15 @@ import {
   withTableActions,
 } from '@gravity-ui/uikit'
 
-import { selectorAdminMode } from '../../redux/slices/admin/slice'
-import { deleteItem, selectorGetData } from '../../redux/slices/data/slice'
+import {
+  adminModalShow,
+  selectorAdminMode,
+} from '../../redux/slices/admin/slice'
+import {
+  changeItem,
+  deleteItem,
+  selectorGetData,
+} from '../../redux/slices/data/slice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { tranformDataForTable } from '../../utils/transformDataForTable'
 
@@ -44,7 +51,10 @@ export const TableRequest = () => {
     return [
       {
         text: 'Редактировать',
-        handler: () => {},
+        handler: (item) => {
+          dispatch(changeItem(item.number))
+          dispatch(adminModalShow('edit'))
+        },
       },
       {
         text: 'Удалить',
