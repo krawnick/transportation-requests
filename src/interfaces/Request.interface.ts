@@ -9,8 +9,8 @@ export interface IRequestType {
   date: string
   company: string
   responsible: string
-  telephone: number
+  telephone: string
   comment?: string
   status: ERequestStatus
-  code: number
+  code: string
 }

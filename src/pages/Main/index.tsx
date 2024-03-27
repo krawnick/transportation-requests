@@ -22,7 +22,9 @@ export const MainPage = () => {
         open={showModal.show}
         onClose={() => dispatch(adminModalClose())}
         title={
-          showModal.type === 'add' ? 'Добавить заявку' : 'Редактировать заявку'
+          showModal.type === 'add'
+            ? 'Добавление заявки'
+            : 'Редактирование заявки'
         }
       >
         <FormRequest />

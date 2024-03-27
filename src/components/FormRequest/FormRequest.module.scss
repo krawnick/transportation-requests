@@ -1,22 +1,39 @@
 .formRequest {
+  width: 100%;
   padding: 30px;
+
+  label {
+    color: var(--g-color-text-warning);
+    letter-spacing: 1.5px;
+  }
 
   .input {
     width: 100%;
-
-    &:not(:last-child) {
-      margin-bottom: 20px;
-    }
+    margin-bottom: 15px;
   }
+}
 
-  .bottom {
-    display: flex;
-    justify-content: space-between;
-  }
+.bottom {
+  display: flex;
+  justify-content: space-between;
+}
 
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    margin: 0;
-    appearance: none;
-  }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  background-color: transparent;
+  transition: background-color 50000s ease-in-out 0s;
+
+  -webkit-text-fill-color: var(--g-color-text-primary);
 }

@@ -12,31 +12,31 @@ const initialState: {
   items: [
     {
       number: 1,
-      date: '1-25-2024 13:23',
+      date: 'Wed, 27 Mar 2024 11:31:20 GMT',
       company: 'Hoff',
       responsible: 'Иванов И. В.',
-      telephone: 9991234567,
+      telephone: '9991234567',
       status: ERequestStatus.TRANSIT,
-      code: 54321,
+      code: '54321',
     },
     {
       number: 2,
-      date: '3-20-2024 14:21',
+      date: 'Wed, 27 Mar 2024 11:31:20 GMT',
       company: 'IKEA',
       responsible: 'Петров В. И.',
-      telephone: 9992332323,
+      telephone: '9992332323',
       comment: 'Доставить по будням после 17:00',
       status: ERequestStatus.DONE,
-      code: 12345,
+      code: '12345',
     },
     {
       number: 3,
-      date: '2-21-2024 20:31',
+      date: 'Wed, 27 Mar 2024 11:31:20 GMT',
       company: 'Hoff',
       responsible: 'Романов Ф. Л.',
-      telephone: 9992343323,
+      telephone: '9992343323',
       status: ERequestStatus.NEW,
-      code: 34567,
+      code: '34567',
     },
   ],
 }
@@ -46,7 +46,7 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<IRequestType>) => {
-      console.log(state, action)
+      state.items.push(action.payload)
     },
     changeItem: () => {},
     deleteItem: (state, action: PayloadAction<number>) => {
