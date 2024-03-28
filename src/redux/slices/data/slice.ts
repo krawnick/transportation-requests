@@ -1,44 +1,91 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import {
-  ERequestStatus,
-  IRequestType,
-} from '../../../interfaces/Request.interface'
+import { ELoadingStatus } from '../../../enum/Status.enum'
+import { IRequestType } from '../../../interfaces/Request.interface'
 import { RootState } from '../../store'
 
-const initialState: {
+interface InitialStateType {
   items: IRequestType[]
-} = {
-  items: [
-    {
-      number: 1,
-      date: 'Wed, 27 Mar 2024 11:31:20 GMT',
-      company: 'Hoff',
-      responsible: 'Иванов И. В.',
-      telephone: '9991234567',
-      status: ERequestStatus.TRANSIT,
-      code: '54321',
-    },
-    {
-      number: 2,
-      date: 'Wed, 27 Mar 2024 11:31:20 GMT',
-      company: 'IKEA',
-      responsible: 'Петров В. И.',
-      telephone: '9992332323',
-      comment: 'Доставить по будням после 17:00',
-      status: ERequestStatus.DONE,
-      code: '12345',
-    },
-    {
-      number: 3,
-      date: 'Wed, 27 Mar 2024 11:31:20 GMT',
-      company: 'Hoff',
-      responsible: 'Романов Ф. Л.',
-      telephone: '9992343323',
-      status: ERequestStatus.NEW,
-      code: '34567',
-    },
-  ],
+  status: ELoadingStatus
+}
+
+export const getData = createAsyncThunk<
+  IRequestType[],
+  void,
+  { state: RootState }
+>('data/getData', async () => {
+  return await fetch(import.meta.env.VITE_API_URL)
+    .then((res) => {
+      if (!res.ok) throw new Error('Ошибка при получении данных')
+
+      return res.json()
+    })
+    .catch((error) => {
+      alert(error)
+      return []
+    })
+})
+
+export const addData = createAsyncThunk<
+  void,
+  IRequestType,
+  { state: RootState }
+>('data/addData', async (item, { dispatch }) => {
+  return await fetch(import.meta.env.VITE_API_URL, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(item),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error('Ошибка при добавлении данных')
+      dispatch(addItem(item))
+      alert('Заявка успешно добавлена')
+    })
+    .catch((error) => {
+      alert(error)
+    })
+})
+
+export const deleteData = createAsyncThunk<void, number, { state: RootState }>(
+  'data/deleteData',
+  async (id, { dispatch }) => {
+    return await fetch(import.meta.env.VITE_API_URL + '/' + id, {
+      method: 'DELETE',
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Ошибка при удалении данных')
+        dispatch(deleteItem(id))
+        alert('Заявка успешно удалена')
+      })
+      .catch((error) => {
+        alert(error)
+      })
+  }
+)
+
+export const updateData = createAsyncThunk<
+  void,
+  IRequestType,
+  { state: RootState }
+>('data/updateData', async (item, { dispatch }) => {
+  return await fetch(import.meta.env.VITE_API_URL + '/' + item.id, {
+    method: 'PUT',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(item),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error('Ошибка при обновлении данных')
+      dispatch(updateItem(item))
+      alert('Заявка успешно обновлена')
+    })
+    .catch((error) => {
+      alert(error)
+    })
+})
+
+const initialState: InitialStateType = {
+  items: [],
+  status: ELoadingStatus.LOADING,
 }
 
 const dataSlice = createSlice({
@@ -48,18 +95,38 @@ const dataSlice = createSlice({
     addItem: (state, action: PayloadAction<IRequestType>) => {
       state.items.push(action.payload)
     },
-    changeItem: (state, action: PayloadAction<IRequestType>) => {
+    updateItem: (state, action: PayloadAction<IRequestType>) => {
       state.items = state.items.map((item) => {
-        return item.number === action.payload.number ? action.payload : item
+        return item.id === action.payload.id ? action.payload : item
       })
     },
     deleteItem: (state, action: PayloadAction<number>) => {
-      state.items = state.items.filter((item) => item.number !== action.payload)
+      state.items = state.items.filter((item) => item.id !== action.payload)
     },
+  },
+  extraReducers: (builder) => {
+    builder
+
+      .addCase(getData.pending, (state) => {
+        state.items = []
+        state.status = ELoadingStatus.LOADING
+      })
+      .addCase(
+        getData.fulfilled,
+        (state, action: PayloadAction<IRequestType[]>) => {
+          state.items = action.payload
+          state.status = ELoadingStatus.SUCCESS
+        }
+      )
+      .addCase(getData.rejected, (state) => {
+        state.items = []
+        state.status = ELoadingStatus.ERROR
+      })
   },
 })
 
 export const dataReducer = dataSlice.reducer
-export const { addItem, changeItem, deleteItem } = dataSlice.actions
+export const { addItem, updateItem, deleteItem } = dataSlice.actions
 
 export const selectorGetData = (state: RootState) => state.data.items
+export const selectorStatusLoadingData = (state: RootState) => state.data.status

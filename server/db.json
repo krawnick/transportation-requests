@@ -1,0 +1,31 @@
+{
+  "requests": [
+    {
+      "id": 1,
+      "date": "Wed, 27 Mar 2024 11:31:20 GMT",
+      "company": "Hoff",
+      "responsible": "Иванов И. В.",
+      "telephone": "9617756907",
+      "status": "Новая",
+      "code": "54321"
+    },
+    {
+      "id": 2,
+      "date": "Thu, 28 Mar 2024 19:59:33 GMT",
+      "company": "Своя компания",
+      "responsible": "Фамилов И. О.",
+      "telephone": "9617756901",
+      "status": "В работе",
+      "code": "4510"
+    },
+    {
+      "id": 3,
+      "date": "Thu, 28 Mar 2024 20:26:50 GMT",
+      "company": "Boxberry",
+      "responsible": "Иванов А. Ю.",
+      "telephone": "9617756912",
+      "status": "Выполнено",
+      "code": "12345"
+    }
+  ]
+}

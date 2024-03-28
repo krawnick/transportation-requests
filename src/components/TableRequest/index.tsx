@@ -1,4 +1,5 @@
 import {
+  Loader,
   Table,
   TableActionConfig,
   TableColumnConfig,
@@ -7,18 +8,23 @@ import {
   withTableActions,
 } from '@gravity-ui/uikit'
 
+import { ELoadingStatus } from '../../enum/Status.enum'
 import {
   adminModalShow,
   selectorAdminMode,
 } from '../../redux/slices/admin/slice'
-import { deleteItem, selectorGetData } from '../../redux/slices/data/slice'
+import {
+  deleteData,
+  selectorGetData,
+  selectorStatusLoadingData,
+} from '../../redux/slices/data/slice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { tranformDataForTable } from '../../utils/transformDataForTable'
 
 import styles from './TableRequest.module.scss'
 
 const columns: TableColumnConfig<TableDataItem>[] = [
-  { id: 'number', name: 'Номер', align: 'center', width: '10%' },
+  { id: 'id', name: 'Номер', align: 'center', width: '10%' },
   { id: 'date', name: 'Дата', align: 'center', width: '10%' },
   { id: 'company', name: 'Компания', align: 'center', width: '12%' },
   { id: 'responsible', name: 'Исполнитель', align: 'center', width: '12%' },
@@ -31,6 +37,7 @@ const columns: TableColumnConfig<TableDataItem>[] = [
 export const TableRequest = () => {
   const admin = useAppSelector(selectorAdminMode)
   const data = useAppSelector(selectorGetData)
+  const statusLoadingData = useAppSelector(selectorStatusLoadingData)
 
   const dispatch = useAppDispatch()
 
@@ -47,23 +54,24 @@ export const TableRequest = () => {
           dispatch(
             adminModalShow({
               type: 'edit',
-              selectItem: data.find(
-                (item) => item.number === selectItem.number
-              ),
+              selectItem: data.find((item) => item.id === selectItem.id),
             })
-            // adminModalShow({ type: 'edit', selectItem: item as IRequestType })
           )
         },
       },
       {
         text: 'Удалить',
-        handler: (item) => dispatch(deleteItem(item.number)),
+        handler: (item) => dispatch(deleteData(item.id)),
         theme: 'danger',
       },
     ]
   }
 
   const emptyMessage = 'Данные отсутствуют'
+
+  if (statusLoadingData === ELoadingStatus.LOADING) {
+    return <Loader />
+  }
 
   return (
     <>

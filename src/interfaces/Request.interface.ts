@@ -1,11 +1,7 @@
-export enum ERequestStatus {
-  NEW = 'Новая',
-  TRANSIT = 'В работе',
-  DONE = 'Выполнено',
-}
+import { ERequestStatus } from '../enum/Status.enum'
 
 export interface IRequestType {
-  number: number
+  id: number
   date: string
   company: string
   responsible: string

@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import {
   ControlPanel,
   FormRequest,
@@ -8,6 +10,7 @@ import {
   adminModalClose,
   selectorAdminModal,
 } from '../../redux/slices/admin/slice'
+import { getData } from '../../redux/slices/data/slice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 
 import styles from './Main.module.scss'
@@ -15,6 +18,10 @@ import styles from './Main.module.scss'
 export const MainPage = () => {
   const dispatch = useAppDispatch()
   const adminModal = useAppSelector(selectorAdminModal)
+
+  useEffect(() => {
+    dispatch(getData())
+  }, [])
 
   return (
     <main className={styles.wrapper}>

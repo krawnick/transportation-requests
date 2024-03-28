@@ -33,6 +33,7 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   background-color: transparent;
+  caret-color: var(--g-color-text-primary);
   transition: background-color 50000s ease-in-out 0s;
 
   -webkit-text-fill-color: var(--g-color-text-primary);
