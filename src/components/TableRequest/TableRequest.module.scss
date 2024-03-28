@@ -1,4 +1,12 @@
 .table {
+  width: 100%;
+
+  table,
+  thead,
+  tr {
+    width: 100%;
+  }
+
   th,
   td {
     background-color: inherit !important;

@@ -18,7 +18,7 @@ export const ControlPanel = () => {
   const changeAdminMode = () => dispatch(adminMode())
 
   return (
-    <section
+    <header
       className={cn(
         !admin ? styles.controlPanel : [styles.controlPanel, styles.admin]
       )}
@@ -41,6 +41,6 @@ export const ControlPanel = () => {
       >
         Администратор
       </Switch>
-    </section>
+    </header>
   )
 }

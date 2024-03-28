@@ -18,18 +18,14 @@ import { tranformDataForTable } from '../../utils/transformDataForTable'
 import styles from './TableRequest.module.scss'
 
 const columns: TableColumnConfig<TableDataItem>[] = [
-  { id: 'number', name: 'Номер', align: 'center' },
-  { id: 'date', name: 'Дата', align: 'center' },
-  { id: 'company', name: 'Компания', align: 'center' },
-  {
-    id: 'responsible',
-    name: 'Исполнитель',
-    align: 'center',
-  },
-  { id: 'telephone', name: 'Телефон', align: 'center' },
-  { id: 'comment', name: 'Комментарий', align: 'center' },
-  { id: 'status', name: 'Состояние', align: 'center' },
-  { id: 'code', name: 'Код ATI', align: 'center' },
+  { id: 'number', name: 'Номер', align: 'center', width: '10%' },
+  { id: 'date', name: 'Дата', align: 'center', width: '10%' },
+  { id: 'company', name: 'Компания', align: 'center', width: '12%' },
+  { id: 'responsible', name: 'Исполнитель', align: 'center', width: '12%' },
+  { id: 'telephone', name: 'Телефон', align: 'center', width: '12%' },
+  { id: 'comment', name: 'Комментарий', align: 'center', width: '18%' },
+  { id: 'status', name: 'Состояние', align: 'center', width: '10%' },
+  { id: 'code', name: 'Код ATI', align: 'center', width: '10%' },
 ]
 
 export const TableRequest = () => {
