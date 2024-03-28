@@ -27,10 +27,3 @@ h2 {
 a {
   text-decoration: none;
 }
-
-@mixin noselect {
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Opera and Firefox */
-
-  -webkit-touch-callout: none; /* iOS Safari */ /* Safari */ /* Konqueror HTML */ /* Old versions of Firefox */ /* Internet Explorer/Edge */
-}

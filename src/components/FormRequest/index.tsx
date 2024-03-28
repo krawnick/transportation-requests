@@ -43,6 +43,7 @@ export const FormRequest = ({ edit }: { edit: boolean }) => {
 
   const [error, setError] = useState<IErrorType>({})
 
+  // Обработчик изменений input'ов
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -52,13 +53,9 @@ export const FormRequest = ({ edit }: { edit: boolean }) => {
       ...input,
       [name]: name === 'id' ? Number(value) : value,
     })
-
-    setError({
-      ...error,
-      [name]: null,
-    })
   }
 
+  // Обработчик изменений select'a
   const handleSelectChange = (value: string[]) => {
     setInput({
       ...input,
@@ -66,6 +63,7 @@ export const FormRequest = ({ edit }: { edit: boolean }) => {
     })
   }
 
+  // Обработчик изменений date
   const handleDateChange = (value: DateTime | null) => {
     if (value) {
       setInput({
@@ -75,10 +73,13 @@ export const FormRequest = ({ edit }: { edit: boolean }) => {
     }
   }
 
+  // Валидация и отправка формы
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const errors: IErrorType = {}
+
+    // Поля для валидации
     const validateKeys: (keyof IRequestType)[] = [
       'id',
       'company',
@@ -87,12 +88,14 @@ export const FormRequest = ({ edit }: { edit: boolean }) => {
       'code',
     ]
 
+    // Проверка на наличие незаполненных полей
     validateKeys.forEach((item) => {
       if (input[item] == '') {
         errors[item] = 'Заполните поле'
       }
     })
 
+    // Проверка на повтор номера заявки
     edit ||
       data.forEach((item) => {
         if (item.id === input.id) {
@@ -100,10 +103,12 @@ export const FormRequest = ({ edit }: { edit: boolean }) => {
         }
       })
 
+    // Проверка номера телефона
     if (input.telephone.length !== 10) {
       errors.telephone = 'Неверный номер телефона'
     }
 
+    // Проверка соблюдения всех условий
     if (Object.keys(errors).length === 0) {
       edit ? dispatch(updateData(input)) : dispatch(addData(input))
 

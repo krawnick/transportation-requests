@@ -23,6 +23,7 @@ import { tranformDataForTable } from '../../utils/transformDataForTable'
 
 import styles from './TableRequest.module.scss'
 
+// Параметры таблицы
 const columns: TableColumnConfig<TableDataItem>[] = [
   { id: 'id', name: 'Номер', align: 'center', width: '10%' },
   { id: 'date', name: 'Дата', align: 'center', width: '10%' },
@@ -41,8 +42,10 @@ export const TableRequest = () => {
 
   const dispatch = useAppDispatch()
 
+  // Добавление столбца с действиями
   const TableActions = withTableActions(Table)
 
+  // Массив конфигураций действий для TableActions
   const getRowActions: (
     item: TableDataItem,
     index: number

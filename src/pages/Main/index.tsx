@@ -19,6 +19,7 @@ export const MainPage = () => {
   const dispatch = useAppDispatch()
   const adminModal = useAppSelector(selectorAdminModal)
 
+  // Получение данных с сервера
   useEffect(() => {
     dispatch(getData())
   }, [])

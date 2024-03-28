@@ -3,6 +3,7 @@ import parsePhoneNumber from 'libphonenumber-js'
 
 import { IRequestType } from '../interfaces/Request.interface'
 
+// Трансформация данных для корректного отображения в таблице заявок.
 export const tranformDataForTable = (data: IRequestType[]) => {
   return data.map((item) => {
     const phone = parsePhoneNumber(item.telephone.toString(), 'RU')?.number
