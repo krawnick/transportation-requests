@@ -27,7 +27,7 @@ export const ControlPanel = () => {
         <Button
           size="xl"
           view="action"
-          onClick={() => dispatch(adminModalShow('add'))}
+          onClick={() => dispatch(adminModalShow({ type: 'add' }))}
         >
           <Icon data={Plus} size={16} />
           Добавить заявку

@@ -11,11 +11,7 @@ import {
   adminModalShow,
   selectorAdminMode,
 } from '../../redux/slices/admin/slice'
-import {
-  changeItem,
-  deleteItem,
-  selectorGetData,
-} from '../../redux/slices/data/slice'
+import { deleteItem, selectorGetData } from '../../redux/slices/data/slice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { tranformDataForTable } from '../../utils/transformDataForTable'
 
@@ -51,9 +47,16 @@ export const TableRequest = () => {
     return [
       {
         text: 'Редактировать',
-        handler: (item) => {
-          dispatch(changeItem(item.number))
-          dispatch(adminModalShow('edit'))
+        handler: (selectItem) => {
+          dispatch(
+            adminModalShow({
+              type: 'edit',
+              selectItem: data.find(
+                (item) => item.number === selectItem.number
+              ),
+            })
+            // adminModalShow({ type: 'edit', selectItem: item as IRequestType })
+          )
         },
       },
       {

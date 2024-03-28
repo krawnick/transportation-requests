@@ -14,20 +14,20 @@ import styles from './Main.module.scss'
 
 export const MainPage = () => {
   const dispatch = useAppDispatch()
-  const showModal = useAppSelector(selectorAdminModal)
+  const adminModal = useAppSelector(selectorAdminModal)
 
   return (
     <main className={styles.wrapper}>
       <ModalWindow
-        open={showModal.show}
+        open={adminModal.show}
         onClose={() => dispatch(adminModalClose())}
         title={
-          showModal.type === 'add'
+          adminModal.type === 'add'
             ? 'Добавление заявки'
             : 'Редактирование заявки'
         }
       >
-        <FormRequest />
+        <FormRequest edit={adminModal.type === 'edit'} />
       </ModalWindow>
       <ControlPanel />
       <TableRequest />

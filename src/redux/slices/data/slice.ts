@@ -48,7 +48,11 @@ const dataSlice = createSlice({
     addItem: (state, action: PayloadAction<IRequestType>) => {
       state.items.push(action.payload)
     },
-    changeItem: () => {},
+    changeItem: (state, action: PayloadAction<IRequestType>) => {
+      state.items = state.items.map((item) => {
+        return item.number === action.payload.number ? action.payload : item
+      })
+    },
     deleteItem: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((item) => item.number !== action.payload)
     },

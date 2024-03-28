@@ -1,14 +1,19 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
+import { IRequestType } from '../../../interfaces/Request.interface'
 import { RootState } from '../../store'
 
-type TypeModal = 'edit' | 'add'
+interface TypeModal {
+  type: 'add' | 'edit'
+  selectItem?: IRequestType
+}
 
 interface InitialStateType {
   adminMode: boolean
   adminModal: {
     show: boolean
-    type: TypeModal
+    type: TypeModal['type']
+    selectItem?: TypeModal['selectItem'] | null
   }
 }
 
@@ -17,6 +22,7 @@ const initialState: InitialStateType = {
   adminModal: {
     show: false,
     type: 'add',
+    selectItem: null,
   },
 }
 
@@ -29,7 +35,10 @@ const adminSlice = createSlice({
     },
     adminModalShow: (state, action: PayloadAction<TypeModal>) => {
       state.adminModal.show = true
-      state.adminModal.type = action.payload
+      state.adminModal.type = action.payload.type
+      if (action.payload.selectItem) {
+        state.adminModal.selectItem = action.payload.selectItem
+      }
     },
     adminModalClose: (state) => {
       state.adminModal.show = false
