@@ -52,7 +52,9 @@ DELETE /requests/:id
 POST /requests
 ```
 
-Добавьте в `body` запроса объект, содержащий следующие параметры:
+Добавьте в `body` запроса объект, содержащий следующие свойства:
+`id`, `date`, `company`, `responsible`, `telephone`, `status`, `code`
+Необязательное свойство: `comment`
 
 ```json
 {
