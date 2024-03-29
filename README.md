@@ -130,10 +130,11 @@ fetch(API_URL/requests)
 GET /requests?_start=0&_limit=10
 ```
 
-Сортировка заявок:
+Сортировка заявок и порядок:
 
 `_sort`
+`_order`
 
 ```
-GET /requests?_sort=company
+GET /requests?_sort=company&_order=desc
 ```
